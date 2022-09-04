@@ -17,7 +17,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'RKMK_Commutator_free_integrators'
+project = 'Quadrotors'
 copyright = '2022, Elena Celledoni, Ergys Çokaj, Andrea Leone, Davide Murari, Brynjulf Owren'
 author = 'Elena Celledoni, Ergys Çokaj, Andrea Leone, Davide Murari, Brynjulf Owren'
 
