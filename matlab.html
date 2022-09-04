@@ -1,0 +1,578 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>MATLAB code &#8212; RKMK_Commutator_free_integrators 0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Algorithms" href="int.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="matlab-code">
+<span id="matlab"></span><h1>MATLAB code<a class="headerlink" href="#matlab-code" title="Permalink to this heading">¶</a></h1>
+<p>This MATLAB code is documented with Sphinx
+using the <a class="reference external" href="https://github.com/sphinx-contrib/matlabdomain/blob/master/README.rst">matlabdomain extension</a>.</p>
+<section id="src">
+<h2>src<a class="headerlink" href="#src" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<span class="target" id="module-src"></span><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">src</span></code> module contains the following source code files:</p>
+<dl class="mat script">
+<dt class="sig sig-object mat" id="src.main">
+<span class="sig-prename descclassname"><span class="pre">src.</span></span><span class="sig-name descname"><span class="pre">main</span></span><a class="headerlink" href="#src.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Main function</p>
+<p>Example on the application of Lie group integrators for the solution of
+the equations of motion of a multibody system, August 2022, Andrea Leone &#64; NTNU</p>
+<p>Ref.: E. Celledoni, E. Çokaj, A. Leone, D. Murari, B. Owren.
+“Lie group integrators for mechanical systems”,
+International Journal of Computer Mathematics, 99:1, 58-88.</p>
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="src-integrators">
+<h2>src/integrators<a class="headerlink" href="#src-integrators" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.integrators.LieEuler">
+<span class="sig-prename descclassname"><span class="pre">src.integrators.</span></span><span class="sig-name descname"><span class="pre">LieEuler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">vector_field</span></em>, <em class="sig-param"><span class="pre">exponential</span></em>, <em class="sig-param"><span class="pre">action</span></em>, <em class="sig-param"><span class="pre">p</span></em>, <em class="sig-param"><span class="pre">h</span></em>, <em class="sig-param"><span class="pre">sigma0</span></em>, <em class="sig-param"><span class="pre">trajectory</span></em>, <em class="sig-param"><span class="pre">t</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.integrators.LieEuler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lie-Euler time integrator (Runge-Kutta-Munthe-Kaas method of order 1)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>vector_field</strong> – right hand side of the ODE [type: function handle]</p></li>
+<li><p><strong>exponential</strong> – exponential map from the Lie algebra to the Lie group [type: function handle]</p></li>
+<li><p><strong>action</strong> – Lie group action [type: function handle]</p></li>
+<li><p><strong>p</strong> – solution at time t_n [type: float, 3x14 matrix]</p></li>
+<li><p><strong>h</strong> – time step size [type: float]</p></li>
+<li><p><strong>sigma0</strong> – initial value of the curve sigma on the Lie algebra [type: float, 30x1 vector]</p></li>
+<li><p><strong>trajectory</strong> – desired trajectory [type: function handle]</p></li>
+<li><p><strong>t</strong> – discrete time t_n [type: float]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>solution at time t_(n+1) [type: float, 3x14 matrix]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.integrators.RKMK2Heun">
+<span class="sig-prename descclassname"><span class="pre">src.integrators.</span></span><span class="sig-name descname"><span class="pre">RKMK2Heun</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">vector_field</span></em>, <em class="sig-param"><span class="pre">exponential</span></em>, <em class="sig-param"><span class="pre">action</span></em>, <em class="sig-param"><span class="pre">p</span></em>, <em class="sig-param"><span class="pre">h</span></em>, <em class="sig-param"><span class="pre">sigma0</span></em>, <em class="sig-param"><span class="pre">trajectory</span></em>, <em class="sig-param"><span class="pre">t</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.integrators.RKMK2Heun" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runge-Kutta-Munthe-Kaas time integrator order 2, based on the Heun scheme</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>vector_field</strong> – right hand side of the ODE [type: function handle]</p></li>
+<li><p><strong>exponential</strong> – exponential map from the Lie algebra to the Lie group [type: function handle]</p></li>
+<li><p><strong>action</strong> – Lie group action [type: function handle]</p></li>
+<li><p><strong>p</strong> – solution at time t_n [type: float, 3x14 matrix]</p></li>
+<li><p><strong>h</strong> – time step size [type: float]</p></li>
+<li><p><strong>sigma0</strong> – initial value of the curve sigma on the Lie algebra [type: float, 30x1 vector]</p></li>
+<li><p><strong>trajectory</strong> – desired trajectory [type: function handle]</p></li>
+<li><p><strong>t</strong> – discrete time t_n [type: float]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>solution at time t_(n+1) [type: float, 3x14 matrix]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.integrators.RKMK3">
+<span class="sig-prename descclassname"><span class="pre">src.integrators.</span></span><span class="sig-name descname"><span class="pre">RKMK3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">vector_field</span></em>, <em class="sig-param"><span class="pre">exponential</span></em>, <em class="sig-param"><span class="pre">action</span></em>, <em class="sig-param"><span class="pre">p</span></em>, <em class="sig-param"><span class="pre">h</span></em>, <em class="sig-param"><span class="pre">sigma0</span></em>, <em class="sig-param"><span class="pre">trajectory</span></em>, <em class="sig-param"><span class="pre">t</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.integrators.RKMK3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runge-Kutta-Munthe-Kaas time integrator order 3</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>vector_field</strong> – right hand side of the ODE [type: function handle]</p></li>
+<li><p><strong>exponential</strong> – exponential map from the Lie algebra to the Lie group [type: function handle]</p></li>
+<li><p><strong>action</strong> – Lie group action [type: function handle]</p></li>
+<li><p><strong>p</strong> – solution at time t_n [type: float, 3x14 matrix]</p></li>
+<li><p><strong>h</strong> – time step size [type: float]</p></li>
+<li><p><strong>sigma0</strong> – initial value of the curve sigma on the Lie algebra [type: float, 30x1 vector]</p></li>
+<li><p><strong>trajectory</strong> – desired trajectory [type: function handle]</p></li>
+<li><p><strong>t</strong> – discrete time t_n [type: float]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>solution at time t_(n+1) [type: float, 3x14 matrix]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="mat script">
+<dt class="sig sig-object mat" id="src.integrators.RKMK4">
+<span class="sig-prename descclassname"><span class="pre">src.integrators.</span></span><span class="sig-name descname"><span class="pre">RKMK4</span></span><a class="headerlink" href="#src.integrators.RKMK4" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runge-Kutta-Munthe-Kaas time integrator order 4</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>vector_field</strong> – right hand side of the ODE [type: function handle]</p></li>
+<li><p><strong>exponential</strong> – exponential map from the Lie algebra to the Lie group [type: function handle]</p></li>
+<li><p><strong>action</strong> – Lie group action [type: function handle]</p></li>
+<li><p><strong>p</strong> – solution at time t_n [type: float, 3x14 matrix]</p></li>
+<li><p><strong>h</strong> – time step size [type: float]</p></li>
+<li><p><strong>sigma0</strong> – initial value of the curve sigma on the Lie algebra [type: float, 30x1 vector]</p></li>
+<li><p><strong>trajectory</strong> – desired trajectory [type: function handle]</p></li>
+<li><p><strong>t</strong> – discrete time t_n [type: float]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>solution at time t_(n+1) [type: float, 3x14 matrix]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.integrators.CFree4">
+<span class="sig-prename descclassname"><span class="pre">src.integrators.</span></span><span class="sig-name descname"><span class="pre">CFree4</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">f</span></em>, <em class="sig-param"><span class="pre">action</span></em>, <em class="sig-param"><span class="pre">exponential</span></em>, <em class="sig-param"><span class="pre">h</span></em>, <em class="sig-param"><span class="pre">p</span></em>, <em class="sig-param"><span class="pre">trajectory</span></em>, <em class="sig-param"><span class="pre">t</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.integrators.CFree4" title="Permalink to this definition">¶</a></dt>
+<dd><p>Commutator-free time integrator of order 4</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>f</strong> – map f from the phase space (on which the vector field is defined) to the Lie algebra [type: function handle]</p></li>
+<li><p><strong>action</strong> – Lie group action [type: function handle]</p></li>
+<li><p><strong>exponential</strong> – exponential map from the Lie algebra to the Lie group [type: function handle]</p></li>
+<li><p><strong>h</strong> – time step size [type: float]</p></li>
+<li><p><strong>p</strong> – solution at time t_n [type: float, 3x14 matrix]</p></li>
+<li><p><strong>trajectory</strong> – desired trajectory [type: function handle]</p></li>
+<li><p><strong>t</strong> – discrete time t_n [type float]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>solution at time t_(n+1) [type: float, 3x14 matrix]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="src-lie-group-functions">
+<h2>src/lie_group_functions<a class="headerlink" href="#src-lie-group-functions" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.lie_group_functions.hat">
+<span class="sig-prename descclassname"><span class="pre">src.lie_group_functions.</span></span><span class="sig-name descname"><span class="pre">hat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">v</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.lie_group_functions.hat" title="Permalink to this definition">¶</a></dt>
+<dd><p>It returns the skew symmetric matrix A associated to the vector v, such
+that hat(a)b=axb for all 3-component vectors a and b, with “x” the cross product</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>v</strong> – vector with 3 components</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>element of the Lie algebra so(3) (skew symmetric 3x3 matrix)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.lie_group_functions.invhat">
+<span class="sig-prename descclassname"><span class="pre">src.lie_group_functions.</span></span><span class="sig-name descname"><span class="pre">invhat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">A</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.lie_group_functions.invhat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inverse of the hat function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>A</strong> – element of the Lie algebra so(3) (skew symmetric 3x3 matrix)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>3x1 column vector v</p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.lie_group_functions.expSO3">
+<span class="sig-prename descclassname"><span class="pre">src.lie_group_functions.</span></span><span class="sig-name descname"><span class="pre">expSO3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">x</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.lie_group_functions.expSO3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exponential map on SO(3)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>input</strong> – element of the lie algebra so(3), represented as a vector with 3 components.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>element of the group SO(3), i.e. 3x3 rotation matrix</p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.lie_group_functions.expSE3">
+<span class="sig-prename descclassname"><span class="pre">src.lie_group_functions.</span></span><span class="sig-name descname"><span class="pre">expSE3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">input</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.lie_group_functions.expSE3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exponential map on SE(3)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>input</strong> – element of the lie algebra se(3) represented as 6-component vector,
+i.e. as a pair (u,v) with with the 3-component vector u corresponding
+to a skew symmetric matrix hat(u) and the 3-component vector v
+corresponding to the translational part.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>element of the group SE(3), represented as a 3x4 matrix [A, b],
+with A 3x3 rotation matrix and b 3-component translation vector.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.lie_group_functions.dexpinvSO3">
+<span class="sig-prename descclassname"><span class="pre">src.lie_group_functions.</span></span><span class="sig-name descname"><span class="pre">dexpinvSO3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">v</span></em>, <em class="sig-param"><span class="pre">input</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.lie_group_functions.dexpinvSO3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inverse of the derivative of the exponential map on SO(3)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>v</strong> – element in the lie algebra so(3), represented as a 3x1 vector</p></li>
+<li><p><strong>input</strong> – element in the lie algebra so(3), represented as a 3x1 vector</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>inverse of dexp_v(input) as 3x1 vector</p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.lie_group_functions.dexpinvSE3">
+<span class="sig-prename descclassname"><span class="pre">src.lie_group_functions.</span></span><span class="sig-name descname"><span class="pre">dexpinvSE3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">sigma</span></em>, <em class="sig-param"><span class="pre">input</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.lie_group_functions.dexpinvSE3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inverse of the derivative of the exponential map on SE(3)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sigma</strong> – element in the lie algebra se(3), represented as a 6x1 vector</p></li>
+<li><p><strong>input</strong> – element in the lie algebra se(3), represented as a 6x1 vector</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>inverse of dexp_sigma(input) as 6x1 vector</p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="src-pre-post-processing">
+<h2>src/pre_post_processing<a class="headerlink" href="#src-pre-post-processing" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="mat script">
+<dt class="sig sig-object mat" id="src.pre_post_processing.preprocess">
+<span class="sig-prename descclassname"><span class="pre">src.pre_post_processing.</span></span><span class="sig-name descname"><span class="pre">preprocess</span></span><a class="headerlink" href="#src.pre_post_processing.preprocess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Preprocessing : definition and inizialization of support variables to plot errors and trajectories</p>
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="mat script">
+<dt class="sig sig-object mat" id="src.pre_post_processing.postprocess">
+<span class="sig-prename descclassname"><span class="pre">src.pre_post_processing.</span></span><span class="sig-name descname"><span class="pre">postprocess</span></span><a class="headerlink" href="#src.pre_post_processing.postprocess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Postprocessing: update of support variables to plot errors and real time plot of the tracking problem</p>
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="mat script">
+<dt class="sig sig-object mat" id="src.pre_post_processing.plots">
+<span class="sig-prename descclassname"><span class="pre">src.pre_post_processing.</span></span><span class="sig-name descname"><span class="pre">plots</span></span><a class="headerlink" href="#src.pre_post_processing.plots" title="Permalink to this definition">¶</a></dt>
+<dd><p>plots</p>
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="src-control-functions">
+<h2>src/control_functions<a class="headerlink" href="#src-control-functions" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.control_functions.controls">
+<span class="sig-prename descclassname"><span class="pre">src.control_functions.</span></span><span class="sig-name descname"><span class="pre">controls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">m1</span></em>, <em class="sig-param"><span class="pre">m2</span></em>, <em class="sig-param"><span class="pre">my</span></em>, <em class="sig-param"><span class="pre">L1</span></em>, <em class="sig-param"><span class="pre">L2</span></em>, <em class="sig-param"><span class="pre">J1</span></em>, <em class="sig-param"><span class="pre">J2</span></em>, <em class="sig-param"><span class="pre">B</span></em>, <em class="sig-param"><span class="pre">trajectory</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.control_functions.controls" title="Permalink to this definition">¶</a></dt>
+<dd><p>Main function used to define the control functions</p>
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.control_functions.getUpar">
+<span class="sig-prename descclassname"><span class="pre">src.control_functions.</span></span><span class="sig-name descname"><span class="pre">getUpar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">m1</span></em>, <em class="sig-param"><span class="pre">m2</span></em>, <em class="sig-param"><span class="pre">my</span></em>, <em class="sig-param"><span class="pre">L1</span></em>, <em class="sig-param"><span class="pre">L2</span></em>, <em class="sig-param"><span class="pre">B</span></em>, <em class="sig-param"><span class="pre">trajectory</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.control_functions.getUpar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Support function used to define the control functions and the vector field</p>
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.control_functions.getUperp">
+<span class="sig-prename descclassname"><span class="pre">src.control_functions.</span></span><span class="sig-name descname"><span class="pre">getUperp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">m1</span></em>, <em class="sig-param"><span class="pre">m2</span></em>, <em class="sig-param"><span class="pre">my</span></em>, <em class="sig-param"><span class="pre">L1</span></em>, <em class="sig-param"><span class="pre">L2</span></em>, <em class="sig-param"><span class="pre">B</span></em>, <em class="sig-param"><span class="pre">trajectory</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.control_functions.getUperp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Support function used to define the control functions and the vector field</p>
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.control_functions.deriv1">
+<span class="sig-prename descclassname"><span class="pre">src.control_functions.</span></span><span class="sig-name descname"><span class="pre">deriv1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">v</span></em>, <em class="sig-param"><span class="pre">vdot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.control_functions.deriv1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Support function used to define the control functions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>v</strong> – vector</p></li>
+<li><p><strong>vdot</strong> – time derivative of vector v</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>time derivative of the vector v divided by the norm of v</p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.control_functions.deriv2">
+<span class="sig-prename descclassname"><span class="pre">src.control_functions.</span></span><span class="sig-name descname"><span class="pre">deriv2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">v</span></em>, <em class="sig-param"><span class="pre">vdot</span></em>, <em class="sig-param"><span class="pre">v2dot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.control_functions.deriv2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Support function used to define the control functions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>v</strong> – vector</p></li>
+<li><p><strong>vdot</strong> – time derivative of vector v</p></li>
+<li><p><strong>v2dot</strong> – second time derivative of vector v</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>time derivative of the output of deriv1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.control_functions.deriv3">
+<span class="sig-prename descclassname"><span class="pre">src.control_functions.</span></span><span class="sig-name descname"><span class="pre">deriv3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">v</span></em>, <em class="sig-param"><span class="pre">vdot</span></em>, <em class="sig-param"><span class="pre">v2dot</span></em>, <em class="sig-param"><span class="pre">v3dot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.control_functions.deriv3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Support function used to define the control functions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>v</strong> – vector</p></li>
+<li><p><strong>vdot</strong> – time derivative of vector v</p></li>
+<li><p><strong>v2dot</strong> – second time derivative of vector v</p></li>
+<li><p><strong>v3dot</strong> – third time derivative of vector v</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>time derivative of the output of deriv2</p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.control_functions.deriv4">
+<span class="sig-prename descclassname"><span class="pre">src.control_functions.</span></span><span class="sig-name descname"><span class="pre">deriv4</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">v</span></em>, <em class="sig-param"><span class="pre">vdot</span></em>, <em class="sig-param"><span class="pre">v2dot</span></em>, <em class="sig-param"><span class="pre">v3dot</span></em>, <em class="sig-param"><span class="pre">v4dot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.control_functions.deriv4" title="Permalink to this definition">¶</a></dt>
+<dd><p>Support function used to define the control functions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>v</strong> – vector</p></li>
+<li><p><strong>vdot</strong> – time derivative of vector v</p></li>
+<li><p><strong>v2dot</strong> – second time derivative of vector v</p></li>
+<li><p><strong>v3dot</strong> – third time derivative of vector v</p></li>
+<li><p><strong>v4dot</strong> – fourth time derivative of vector v</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.control_functions.derivhatq2w">
+<span class="sig-prename descclassname"><span class="pre">src.control_functions.</span></span><span class="sig-name descname"><span class="pre">derivhatq2w</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">q</span></em>, <em class="sig-param"><span class="pre">w</span></em>, <em class="sig-param"><span class="pre">qdot</span></em>, <em class="sig-param"><span class="pre">wdot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.control_functions.derivhatq2w" title="Permalink to this definition">¶</a></dt>
+<dd><p>Support function used to define the control functions</p>
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.control_functions.deriv2hatq2w">
+<span class="sig-prename descclassname"><span class="pre">src.control_functions.</span></span><span class="sig-name descname"><span class="pre">deriv2hatq2w</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">q</span></em>, <em class="sig-param"><span class="pre">w</span></em>, <em class="sig-param"><span class="pre">qdot</span></em>, <em class="sig-param"><span class="pre">wdot</span></em>, <em class="sig-param"><span class="pre">q2dot</span></em>, <em class="sig-param"><span class="pre">w2dot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.control_functions.deriv2hatq2w" title="Permalink to this definition">¶</a></dt>
+<dd><p>Support function used to define the control functions</p>
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.control_functions.deriv3hatq2w">
+<span class="sig-prename descclassname"><span class="pre">src.control_functions.</span></span><span class="sig-name descname"><span class="pre">deriv3hatq2w</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">q</span></em>, <em class="sig-param"><span class="pre">w</span></em>, <em class="sig-param"><span class="pre">qdot</span></em>, <em class="sig-param"><span class="pre">wdot</span></em>, <em class="sig-param"><span class="pre">q2dot</span></em>, <em class="sig-param"><span class="pre">w2dot</span></em>, <em class="sig-param"><span class="pre">q3dot</span></em>, <em class="sig-param"><span class="pre">w3dot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.control_functions.deriv3hatq2w" title="Permalink to this definition">¶</a></dt>
+<dd><p>Support function used to define the control functions</p>
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="src.control_functions.deriv4hatq2w">
+<span class="sig-prename descclassname"><span class="pre">src.control_functions.</span></span><span class="sig-name descname"><span class="pre">deriv4hatq2w</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">q</span></em>, <em class="sig-param"><span class="pre">w</span></em>, <em class="sig-param"><span class="pre">qdot</span></em>, <em class="sig-param"><span class="pre">wdot</span></em>, <em class="sig-param"><span class="pre">q2dot</span></em>, <em class="sig-param"><span class="pre">w2dot</span></em>, <em class="sig-param"><span class="pre">q3dot</span></em>, <em class="sig-param"><span class="pre">w3dot</span></em>, <em class="sig-param"><span class="pre">q4dot</span></em>, <em class="sig-param"><span class="pre">w4dot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.control_functions.deriv4hatq2w" title="Permalink to this definition">¶</a></dt>
+<dd><p>Support function used to define the control functions</p>
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">RKMK_Commutator_free_integrators</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="ode.html">Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="int.html">Algorithms</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">MATLAB code</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#src">src</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#src-integrators">src/integrators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#src-lie-group-functions">src/lie_group_functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#src-pre-post-processing">src/pre_post_processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#src-control-functions">src/control_functions</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="int.html" title="previous chapter">Algorithms</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Elena Celledoni, Ergys Çokaj, Andrea Leone, Davide Murari, Brynjulf Owren.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/matlab.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
