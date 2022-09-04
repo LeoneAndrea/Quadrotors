@@ -1,8 +1,10 @@
-# RKMK_Commutator_free_integrators
+# Qaudrotors
 
-![CI](https://github.com/THREAD-3-2/RKMK_Commutator_free_integrators/workflows/CI/badge.svg)
-[![documentation](https://img.shields.io/badge/docs-passing-<COLOR>.svg)](https://THREAD-3-2.github.io/RKMK_Commutator_free_integrators/)
+![CI](https://github.com/LeoneAndrea/Quadrotors)
 
-An example on the application of Runge-Kutta-Munthe-Kaas and Commutator free Lie group integrators for the solution of the equations of motion of a multibody system.
+
+[![documentation](https://img.shields.io/badge/docs-passing-<COLOR>.svg)](https://github.com/LeoneAndrea/Quadrotors.git)
+
+An example on the implementation of Lie group integrators (Runge-Kutta-Munthe-Kaas and Commutator free) for the solution of the equations of motion of a multibody system made of two cooperating quadrotor unmanned aerial vehicles (UAV) connected to a point mass (suspended load) via rigid links.
 
 Matlab code.
