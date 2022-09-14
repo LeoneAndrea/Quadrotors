@@ -86,12 +86,12 @@ and its powers <span class="math notranslate nohighlight">\(\textrm{ad}_u^2 v=[u
 <p>To evaluate <span class="math notranslate nohighlight">\(\textrm{dexp}_u^{-1}(v)\)</span> one can either truncate the series <span class="xref std std-ref">(3)</span>,
 or compute its exact expression for the particular Lie algebra under consideration. The exponential
 maps on the Lie groups SO(3) and SE(3) are implemented in
-<a class="reference external" href="https://github.com/THREAD-3-2/RKMK_Commutator_free_integrators/blob/main/src/lie_group_functions/expSO3.m">expSO3</a>
-and <a class="reference external" href="https://github.com/THREAD-3-2/RKMK_Commutator_free_integrators/blob/main/src/lie_group_functions/expSE3.m">expSE3</a>.
+<a class="reference external" href="https://github.com/LeoneAndrea/Quadrotors/blob/main/src/lie_group_functions/expSO3.m">expSO3</a>
+and <a class="reference external" href="https://github.com/LeoneAndrea/Quadrotors/blob/main/src/lie_group_functions/expSE3.m">expSE3</a>.
 The exact expressions for the inverse of the derivative of
 the exponential map on SO(3) and SE(3) are implemented
-in <a class="reference external" href="https://github.com/THREAD-3-2/RKMK_Commutator_free_integrators/blob/main/src/lie_group_functions/dexpinvSO3.m">dexpinvSO3</a>
-and <a class="reference external" href="https://github.com/THREAD-3-2/RKMK_Commutator_free_integrators/blob/main/src/lie_group_functions/dexpinvSE3.m">dexpinvSE3</a>.</p>
+in <a class="reference external" href="https://github.com/LeoneAndrea/Quadrotors/blob/main/src/lie_group_functions/dexpinvSO3.m">dexpinvSO3</a>
+and <a class="reference external" href="https://github.com/LeoneAndrea/Quadrotors/blob/main/src/lie_group_functions/dexpinvSE3.m">dexpinvSE3</a>.</p>
 <section id="examples">
 <span id="rkmk-ex-int"></span><h3>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h3>
 <p>Let us consider an s-stage Runge-Kutta (RK) method for the initial value problem <a class="reference internal" href="#equation-vecfield">(1)</a>:</p>
@@ -128,7 +128,7 @@ c_s &amp; a_{s 1} &amp; a_{s 2} &amp; \ldots &amp; a_{s s} \\
 \end{array}
 \end{align}\end{split}\]</div>
 <p>The resulting Lie-Euler method is implemented in
-<a class="reference external" href="https://github.com/THREAD-3-2/RKMK_Commutator_free_integrators/blob/main/src/integrators/LieEuler.m">LieEuler</a>.</p>
+<a class="reference external" href="https://github.com/LeoneAndrea/Quadrotors/blob/main/src/integrators/LieEuler.m">LieEuler</a>.</p>
 <p>An improvement to the Lie-Euler method is the second-order RKMK method based on the tableau of the Heun’s method,</p>
 <div class="math notranslate nohighlight" id="equation-int-1">
 <span class="eqno">(9)<a class="headerlink" href="#equation-int-1" title="Permalink to this equation">¶</a></span>\[\begin{split}\begin{align}
@@ -138,7 +138,7 @@ c_s &amp; a_{s 1} &amp; a_{s 2} &amp; \ldots &amp; a_{s s} \\
 \hline &amp; 1/2 &amp; 1/2
 \end{array},
 \end{align}\end{split}\]</div>
-<p>and implemented in <a class="reference external" href="https://github.com/THREAD-3-2/RKMK_Commutator_free_integrators/blob/main/src/integrators/RKMK2Heun.m">RKMK2Heun</a>.</p>
+<p>and implemented in <a class="reference external" href="https://github.com/LeoneAndrea/Quadrotors/blob/main/src/integrators/RKMK2Heun.m">RKMK2Heun</a>.</p>
 <p>The following Butcher’s tables provide the coefficients for two classical methods of order three (on the left) and order four (on the right):</p>
 <div class="math notranslate nohighlight" id="equation-4ord">
 <span class="eqno">(10)<a class="headerlink" href="#equation-4ord" title="Permalink to this equation">¶</a></span>\[\begin{split}\begin{align}
@@ -157,8 +157,8 @@ c_s &amp; a_{s 1} &amp; a_{s 2} &amp; \ldots &amp; a_{s s} \\
 \hline &amp; {1/6} &amp; {1/3} &amp; {1/3} &amp; {1/6}
 \end{array}
 \end{align}\end{split}\]</div>
-<p>The corresponding RKMK integrators are implemented in <a class="reference external" href="https://github.com/THREAD-3-2/RKMK_Commutator_free_integrators/blob/main/src/integrators/RKMK3.m">RKMK3</a> and
-<a class="reference external" href="https://github.com/THREAD-3-2/RKMK_Commutator_free_integrators/blob/main/src/integrators/RKMK4.m">RKMK4</a>.</p>
+<p>The corresponding RKMK integrators are implemented in <a class="reference external" href="https://github.com/LeoneAndrea/Quadrotors/blob/main/src/integrators/RKMK3.m">RKMK3</a> and
+<a class="reference external" href="https://github.com/LeoneAndrea/Quadrotors/blob/main/src/integrators/RKMK4.m">RKMK4</a>.</p>
 </section>
 </section>
 <section id="commutator-free-methods">
@@ -183,7 +183,7 @@ exponential as well as of evaluating the vector field. Therefore it makes sense 
 keep the number of exponentials <span class="math notranslate nohighlight">\(J\)</span> in each stage as low as possible, and
 possibly also the number of stages <span class="math notranslate nohighlight">\(s\)</span>.</p>
 <p>The following example is a generalization of the classical fourth-order
-Runge–Kutta method in <a class="reference internal" href="#equation-4ord">(10)</a> and is implemented in  <a class="reference external" href="https://github.com/THREAD-3-2/RKMK_Commutator_free_integrators/blob/main/src/integrators/CFree4.m">CFree4</a>:</p>
+Runge–Kutta method in <a class="reference internal" href="#equation-4ord">(10)</a> and is implemented in  <a class="reference external" href="https://github.com/LeoneAndrea/Quadrotors/blob/main/src/integrators/CFree4.m">CFree4</a>:</p>
 <div class="math notranslate nohighlight" id="equation-int-3">
 <span class="eqno">(12)<a class="headerlink" href="#equation-int-3" title="Permalink to this equation">¶</a></span>\[\begin{split}\begin{aligned}
 &amp;Y_1=y_0, \\
