@@ -31,7 +31,7 @@ In order to write the equations of motion of the system, we identify :math:`TSO(
 		\dot{R}_i = R_i\hat{\Omega}_i,\quad \dot{q}_i = \hat{\omega}_iq_i,\quad \quad i=1,2,
 	\end{align}
 
-where :math:`\Omega_1,\Omega_2\in\mathbb{R}^3` represent the angular velocities of each quadrotor expressed with respect to its body-fixed frame, and :math:`\omega_1,\omega_2` are the angular velocities of the links :math:`q_1,q_2\in S^2`, satisfying :math:`q_i\cdot\omega_i=0\;(i=1,2)`. The `hat map <https://github.com/THREAD-3-2/RKMK_Commutator_free_integrators/blob/main/src/lie_group_functions/hat.m>`_ 
+where :math:`\Omega_1,\Omega_2\in\mathbb{R}^3` represent the angular velocities of each quadrotor expressed with respect to its body-fixed frame, and :math:`\omega_1,\omega_2` are the angular velocities of the links :math:`q_1,q_2\in S^2`, satisfying :math:`q_i\cdot\omega_i=0\;(i=1,2)`. The `hat map <https://github.com/LeoneAndrea/Quadrotors/blob/main/src/lie_group_functions/hat.m>`_ 
 
 .. math::
    \hat{\cdot}:\mathbb{R}^3\rightarrow  \mathfrak{so}(3),\qquad
