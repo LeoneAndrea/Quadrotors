@@ -74,12 +74,12 @@ The inverse is
 To evaluate :math:`\textrm{dexp}_u^{-1}(v)` one can either truncate the series :ref:`(3) <eq:2>`, 
 or compute its exact expression for the particular Lie algebra under consideration. The exponential 
 maps on the Lie groups SO(3) and SE(3) are implemented in 
-`expSO3 <https://github.com/THREAD-3-2/RKMK_Commutator_free_integrators/blob/main/src/lie_group_functions/expSO3.m>`_ 
-and `expSE3 <https://github.com/THREAD-3-2/RKMK_Commutator_free_integrators/blob/main/src/lie_group_functions/expSE3.m>`_. 
+`expSO3 <https://github.com/LeoneAndrea/Quadrotors/blob/main/src/lie_group_functions/expSO3.m>`_ 
+and `expSE3 <https://github.com/LeoneAndrea/Quadrotors/blob/main/src/lie_group_functions/expSE3.m>`_. 
 The exact expressions for the inverse of the derivative of 
 the exponential map on SO(3) and SE(3) are implemented 
-in `dexpinvSO3 <https://github.com/THREAD-3-2/RKMK_Commutator_free_integrators/blob/main/src/lie_group_functions/dexpinvSO3.m>`_ 
-and `dexpinvSE3 <https://github.com/THREAD-3-2/RKMK_Commutator_free_integrators/blob/main/src/lie_group_functions/dexpinvSE3.m>`_.
+in `dexpinvSO3 <https://github.com/LeoneAndrea/Quadrotors/blob/main/src/lie_group_functions/dexpinvSO3.m>`_ 
+and `dexpinvSE3 <https://github.com/LeoneAndrea/Quadrotors/blob/main/src/lie_group_functions/dexpinvSE3.m>`_.
 
 .. _rkmk_ex_int:
 
@@ -135,7 +135,7 @@ The simplest Lie group integrator is the Lie-Euler method, based on the classica
     \end{align}
     
 The resulting Lie-Euler method is implemented in 
-`LieEuler <https://github.com/THREAD-3-2/RKMK_Commutator_free_integrators/blob/main/src/integrators/LieEuler.m>`_.
+`LieEuler <https://github.com/LeoneAndrea/Quadrotors/blob/main/src/integrators/LieEuler.m>`_.
 
 An improvement to the Lie-Euler method is the second-order RKMK method based on the tableau of the Heun's method,
 
@@ -149,7 +149,7 @@ An improvement to the Lie-Euler method is the second-order RKMK method based on 
     \end{array},
     \end{align}
 
-and implemented in `RKMK2Heun <https://github.com/THREAD-3-2/RKMK_Commutator_free_integrators/blob/main/src/integrators/RKMK2Heun.m>`_.
+and implemented in `RKMK2Heun <https://github.com/LeoneAndrea/Quadrotors/blob/main/src/integrators/RKMK2Heun.m>`_.
 
 The following Butcher's tables provide the coefficients for two classical methods of order three (on the left) and order four (on the right):
 
@@ -173,8 +173,8 @@ The following Butcher's tables provide the coefficients for two classical method
     \end{array}
     \end{align}
 
-The corresponding RKMK integrators are implemented in `RKMK3 <https://github.com/THREAD-3-2/RKMK_Commutator_free_integrators/blob/main/src/integrators/RKMK3.m>`_ and
-`RKMK4 <https://github.com/THREAD-3-2/RKMK_Commutator_free_integrators/blob/main/src/integrators/RKMK4.m>`_.
+The corresponding RKMK integrators are implemented in `RKMK3 <https://github.com/LeoneAndrea/Quadrotors/blob/main/src/integrators/RKMK3.m>`_ and
+`RKMK4 <https://github.com/LeoneAndrea/Quadrotors/blob/main/src/integrators/RKMK4.m>`_.
 
 
 
@@ -208,7 +208,7 @@ keep the number of exponentials :math:`J` in each stage as low as possible, and
 possibly also the number of stages :math:`s`. 
 
 The following example is a generalization of the classical fourth-order
-Runge–Kutta method in :eq:`4ord` and is implemented in  `CFree4 <https://github.com/THREAD-3-2/RKMK_Commutator_free_integrators/blob/main/src/integrators/CFree4.m>`_:
+Runge–Kutta method in :eq:`4ord` and is implemented in  `CFree4 <https://github.com/LeoneAndrea/Quadrotors/blob/main/src/integrators/CFree4.m>`_:
 
 
 .. math::
